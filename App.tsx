@@ -8,10 +8,13 @@ import GroupList from './src/pages/GroupList';
 import MyPage from './src/pages/MyPage';
 import SignIn from './src/pages/SignIn';
 import SignUp from './src/pages/SignUp';
+import GroupMaking from './src/pages/GroupMaking';
+import GroupMain from './src/pages/GroupMain';
 
 type RootStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
+  GroupMaking: undefined;
 };
 
 export type LoggedInParamList = {
@@ -36,15 +39,17 @@ function App() {
             options={{title: '메인페이지'}}
           />
           <Tab.Screen
-            name="GroupList"
-            component={GroupList}
+            name="GroupMain"
+            component={GroupMain}
             options={{title: '그룹페이지'}}
           />
+           
           <Tab.Screen
             name="MyPage"
             component={MyPage}
             options={{title: '마이페이지'}}
           />
+          
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>
