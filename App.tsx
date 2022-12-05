@@ -36,20 +36,18 @@ function App() {
           <Tab.Screen
             name="main"
             component={Main}
-            options={{title: '메인페이지'}}
+            options={{headerShown: false}}
           />
           <Tab.Screen
             name="GroupMain"
             component={GroupMain}
             options={{title: '그룹페이지'}}
           />
-           
           <Tab.Screen
             name="MyPage"
             component={MyPage}
             options={{title: '마이페이지'}}
           />
-          
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>
