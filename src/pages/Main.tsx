@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import {getDaysInMonth} from 'date-fns';
 import React, {useCallback, useReducer} from 'react';
 import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import Calendar from '../components/Calendar';
 
-const today = new Date();
+const TODAY = new Date();
+
+const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
 
 type Action =
   | {
@@ -16,23 +20,23 @@ type State = {
 };
 
 const initialState = {
-  year: today.getFullYear(),
-  month: today.getMonth(),
+  year: TODAY.getFullYear(),
+  month: TODAY.getMonth() + 1,
 };
 
 const reducer: React.Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case 'INCREMENT':
-      if (state.month < 11) {
+      if (state.month < 12) {
         return {...state, month: state.month + 1};
       } else {
-        return {...state, year: state.year + 1, month: 0};
+        return {...state, year: state.year + 1, month: 1};
       }
     case 'DECREMENT':
-      if (state.month > 0) {
+      if (state.month > 1) {
         return {...state, month: state.month - 1};
       } else {
-        return {...state, year: state.year - 1, month: 11};
+        return {...state, year: state.year - 1, month: 12};
       }
   }
 };
@@ -40,8 +44,8 @@ const reducer: React.Reducer<State, Action> = (state, action) => {
 function Main() {
   const [state, disaptch] = useReducer(reducer, initialState);
 
-  const lastDate = new Date(state.year, state.month + 1, 0).getDate();
-  const firstDay = new Date(state.year, state.month, 1).getDay();
+  const {month, year} = state;
+  console.log(state);
 
   const onIncrement = useCallback(() => {
     disaptch({type: 'INCREMENT'});
@@ -58,7 +62,7 @@ function Main() {
           <Text style={styles.headerText}>&lt;</Text>
         </Pressable>
         <Text style={styles.headerText}>
-          {state.year}.{state.month + 1}
+          {year}.{month}
         </Text>
         <Pressable onPress={onIncrement}>
           <Text style={styles.headerText}>&gt;</Text>
@@ -66,15 +70,12 @@ function Main() {
       </View>
       <View>
         <View style={styles.weeks}>
-          <Text>일</Text>
-          <Text>월</Text>
-          <Text>화</Text>
-          <Text>수</Text>
-          <Text>목</Text>
-          <Text>금</Text>
-          <Text>토</Text>
+          {WEEK.map(day => (
+            <Text key={day}>{day}</Text>
+          ))}
         </View>
       </View>
+      <Calendar year={year} month={month} />
     </SafeAreaView>
   );
 }
