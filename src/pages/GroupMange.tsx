@@ -1,4 +1,5 @@
 import { Image, StyleSheet, Text, View } from "react-native";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 function GroupManage() {
 
@@ -7,16 +8,20 @@ function GroupManage() {
   const styles = StyleSheet.create({
     container: {
       height :500,
-      width : 500,
+      flrx: 1,
       flexDirection:'column',
-      ustifyContent: "center"
+      // justifyContent: "center",
+      alignItems: "center"
     }
   })
 
   return (
     <View style={styles.container}>
-      <View style={{width:100,height:100,flexDirection:'column',justifyContent: "center", alignItems: "center"}}>
+      <View style={{width:'95%',height:100,flexDirection:'column'}}>
         <Image source={{uri:image}} style={{width:'100%',height:'100%',}}/>
+        <View>
+          <Icon name="home" size={24} color="#000" />
+        </View>
       </View>
     </View>
   )
