@@ -1,51 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import {getDaysInMonth} from 'date-fns';
 import React, {useCallback, useReducer} from 'react';
 import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Calendar from '../components/Calendar';
-
-const TODAY = new Date();
+import {reducer, initialState} from '../store/CalendarReducer';
 
 const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
-
-type Action =
-  | {
-      type: 'INCREMENT';
-    }
-  | {type: 'DECREMENT'};
-
-type State = {
-  year: number;
-  month: number;
-};
-
-const initialState = {
-  year: TODAY.getFullYear(),
-  month: TODAY.getMonth() + 1,
-};
-
-const reducer: React.Reducer<State, Action> = (state, action) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      if (state.month < 12) {
-        return {...state, month: state.month + 1};
-      } else {
-        return {...state, year: state.year + 1, month: 1};
-      }
-    case 'DECREMENT':
-      if (state.month > 1) {
-        return {...state, month: state.month - 1};
-      } else {
-        return {...state, year: state.year - 1, month: 12};
-      }
-  }
-};
 
 function Main() {
   const [state, disaptch] = useReducer(reducer, initialState);
 
   const {month, year} = state;
-  console.log(state);
 
   const onIncrement = useCallback(() => {
     disaptch({type: 'INCREMENT'});

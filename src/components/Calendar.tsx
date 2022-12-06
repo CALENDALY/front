@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import makeCalendar from '../utils/MakeCalendar';
 
@@ -21,16 +21,17 @@ function Calendar({year, month}: Props) {
       {monthList.map((weeks, weekIdx) => (
         <View key={weekIdx} style={styles.container}>
           {weeks.map((day, dayIdx) => (
-            <Text
-              key={day}
-              style={
-                (dayIdx < firstDay && weekIdx === 0) ||
-                (weekIdx === monthList.length - 1 && day < 7)
-                  ? styles.opacity
-                  : null
-              }>
-              {day}
-            </Text>
+            <Pressable key={day}>
+              <Text
+                style={
+                  (dayIdx < firstDay && weekIdx === 0) ||
+                  (weekIdx === monthList.length - 1 && day < 7)
+                    ? styles.opacity
+                    : null
+                }>
+                {day}
+              </Text>
+            </Pressable>
           ))}
         </View>
       ))}
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderBottomColor: '#e1e1e1',
     borderBottomWidth: 2,
-    height: hp('12%'),
+    height: hp('12.3%'),
   },
   day: {
     fontSize: 16,
