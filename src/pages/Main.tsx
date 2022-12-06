@@ -11,11 +11,11 @@ function Main() {
   const {month, year} = state;
 
   const onIncrement = useCallback(() => {
-    disaptch({type: 'INCREMENT'});
+    disaptch({type: 'NEXTMONTH'});
   }, []);
 
   const onDecrement = useCallback(() => {
-    disaptch({type: 'DECREMENT'});
+    disaptch({type: 'PREVMONTH'});
   }, []);
 
   return (
@@ -33,8 +33,10 @@ function Main() {
       </View>
       <View>
         <View style={styles.weeks}>
-          {WEEK.map(day => (
-            <Text key={day}>{day}</Text>
+          {WEEK.map((day, idx) => (
+            <Text key={day} style={idx === 0 && styles.red}>
+              {day}
+            </Text>
           ))}
         </View>
       </View>
@@ -66,6 +68,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderBottomColor: '#e1e1e1',
     borderBottomWidth: 2,
+  },
+  red: {
+    color: 'red',
   },
 });
 export default Main;

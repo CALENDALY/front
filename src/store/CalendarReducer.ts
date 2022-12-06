@@ -2,9 +2,9 @@ const TODAY = new Date();
 
 type Action =
   | {
-      type: 'INCREMENT';
+      type: 'NEXTMONTH';
     }
-  | {type: 'DECREMENT'};
+  | {type: 'PREVMONTH'};
 
 type State = {
   year: number;
@@ -18,13 +18,13 @@ export const initialState = {
 
 export const reducer: React.Reducer<State, Action> = (state, action) => {
   switch (action.type) {
-    case 'INCREMENT':
+    case 'NEXTMONTH':
       if (state.month < 12) {
         return {...state, month: state.month + 1};
       } else {
         return {...state, year: state.year + 1, month: 1};
       }
-    case 'DECREMENT':
+    case 'PREVMONTH':
       if (state.month > 1) {
         return {...state, month: state.month - 1};
       } else {

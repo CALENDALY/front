@@ -23,12 +23,13 @@ function Calendar({year, month}: Props) {
           {weeks.map((day, dayIdx) => (
             <Pressable key={day}>
               <Text
-                style={
+                style={[
+                  dayIdx === 0 && styles.red,
                   (dayIdx < firstDay && weekIdx === 0) ||
                   (weekIdx === monthList.length - 1 && day < 7)
                     ? styles.opacity
-                    : null
-                }>
+                    : null,
+                ]}>
                 {day}
               </Text>
             </Pressable>
@@ -54,6 +55,9 @@ const styles = StyleSheet.create({
   },
   opacity: {
     opacity: 0.5,
+  },
+  red: {
+    color: 'red',
   },
 });
 
