@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import Main from './src/pages/Main';
+import Main from './src/pages/MainPage';
 import GroupList from './src/pages/GroupList';
 import MyPage from './src/pages/MyPage';
 import SignIn from './src/pages/SignIn';

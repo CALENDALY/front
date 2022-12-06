@@ -1,17 +1,18 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 import makeCalendar from '../utils/MakeCalendar';
 
 type Props = {
   year: number;
   month: number;
+  goDetail: () => void;
 };
 
-function Calendar({year, month}: Props) {
+function CalendarContainer({year, month, goDetail}: Props) {
   const lastDate = new Date(year, month, 0).getDate();
   const firstDay = new Date(year, month - 1, 1).getDay();
-
   const week = Math.ceil((firstDay + lastDate) / 7);
 
   const monthList = makeCalendar(week, year, month, firstDay, lastDate);
@@ -21,7 +22,7 @@ function Calendar({year, month}: Props) {
       {monthList.map((weeks, weekIdx) => (
         <View key={weekIdx} style={styles.container}>
           {weeks.map((day, dayIdx) => (
-            <Pressable key={day}>
+            <Pressable key={day} onPress={goDetail}>
               <Text
                 style={[
                   dayIdx === 0 && styles.red,
@@ -61,4 +62,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Calendar;
+export default CalendarContainer;

@@ -1,11 +1,18 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useCallback, useReducer} from 'react';
 import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import Calendar from '../components/Calendar';
+import CalendarContainer from '../components/CalendarContainer';
 import {reducer, initialState} from '../store/CalendarReducer';
+import {MainPageParamList} from './MainPage';
 
 const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
 
-function Main() {
+export type CalendarScreenProps = NativeStackScreenProps<
+  MainPageParamList,
+  'Calendar'
+>;
+
+function Calendar({navigation}: CalendarScreenProps) {
   const [state, disaptch] = useReducer(reducer, initialState);
 
   const {month, year} = state;
@@ -17,6 +24,10 @@ function Main() {
   const onDecrement = useCallback(() => {
     disaptch({type: 'PREVMONTH'});
   }, []);
+
+  const goDetail = useCallback(() => {
+    navigation.navigate('UserSchedule');
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.body}>
@@ -40,7 +51,7 @@ function Main() {
           ))}
         </View>
       </View>
-      <Calendar year={year} month={month} />
+      <CalendarContainer year={year} month={month} goDetail={goDetail} />
     </SafeAreaView>
   );
 }
@@ -73,4 +84,4 @@ const styles = StyleSheet.create({
     color: 'red',
   },
 });
-export default Main;
+export default Calendar;
