@@ -1,10 +1,6 @@
 const TODAY = new Date();
 
-type Action =
-  | {
-      type: 'NEXTMONTH';
-    }
-  | {type: 'PREVMONTH'};
+type Action = {type: 'NEXTMONTH'} | {type: 'PREVMONTH'};
 
 type State = {
   year: number;

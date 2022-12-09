@@ -13,6 +13,11 @@ type Props = {
   year: number;
   month: number;
 };
+type Date = {
+  month: number;
+  year: number;
+  day: number;
+};
 
 function CalendarContainer({year, month}: Props) {
   const lastDate = new Date(year, month, 0).getDate();
@@ -24,15 +29,24 @@ function CalendarContainer({year, month}: Props) {
   const currentYear = newDate.getFullYear();
   const currentMonth = newDate.getMonth() + 1;
 
-  const correctToday = currentMonth === month && currentYear && month;
+  const correctToday = useCallback(
+    (date: Date) => {
+      return (
+        currentMonth === date.month &&
+        currentYear === date.year &&
+        date.day === today
+      );
+    },
+    [currentMonth, currentYear, today],
+  );
 
   const monthList = makeCalendar(week, year, month, firstDay, lastDate);
 
   const goDetail = useCallback(
-    (day: number) => {
-      navigation.navigate('ScheduleList', {date: {year, month, day}});
+    (day: Date) => {
+      navigation.navigate('ScheduleList', {date: day});
     },
-    [month, navigation, year],
+    [navigation],
   );
 
   return (
@@ -41,23 +55,21 @@ function CalendarContainer({year, month}: Props) {
         <View key={weekIdx} style={styles.container}>
           {weeks.map((day, dayIdx) => (
             <Pressable
-              key={day}
+              key={day.day}
               onPress={() => goDetail(day)}
               style={[styles.dayContainer]}>
-              {day === today && correctToday ? (
-                <View style={styles.today} />
-              ) : null}
+              {correctToday(day) ? <View style={styles.today} /> : null}
               <Text
                 style={[
                   styles.day,
                   dayIdx === 0 && styles.red,
                   (dayIdx < firstDay && weekIdx === 0) ||
-                  (weekIdx === monthList.length - 1 && day < 7)
+                  (weekIdx === monthList.length - 1 && day.day < 7)
                     ? styles.opacity
                     : null,
-                  day === today && correctToday ? {color: 'white'} : null,
+                  correctToday(day) ? {color: 'white'} : null,
                 ]}>
-                {day}
+                {day.day}
               </Text>
             </Pressable>
           ))}

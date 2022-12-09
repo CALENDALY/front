@@ -13,10 +13,16 @@ const makeCalendar = (
       for (let j = 1; j <= 7; j++) {
         if (j <= firstDay) {
           const day = prevLastDate - firstDay + j;
-          weekList.push(day);
+          const date = {
+            year: month - 1 === 0 ? year - 1 : year,
+            month: month - 1 === 0 ? 12 : month - 1,
+            day,
+          };
+          weekList.push(date);
         } else {
           const day = j - firstDay;
-          weekList.push(day);
+          const date = {year, month, day};
+          weekList.push(date);
         }
       }
     } else {
@@ -24,10 +30,16 @@ const makeCalendar = (
       for (let j = startDate; j <= i * 7 - 1; j++) {
         if (j - firstDay < lastDate) {
           const day = j - firstDay + 1;
-          weekList.push(day);
+          const date = {year, month, day};
+          weekList.push(date);
         } else {
           const day = j - lastDate - firstDay + 1;
-          weekList.push(day);
+          const date = {
+            year: month + 1 === 13 ? year + 1 : year,
+            month: month + 1 === 13 ? 1 : month + 1,
+            day,
+          };
+          weekList.push(date);
         }
       }
     }
