@@ -1,11 +1,17 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import Calendar from './Calendar';
-import UserSchedule from './UserSchedule';
+import ScheduleList from './ScheduleList';
 
 export type MainPageParamList = {
   Calendar: undefined;
-  UserSchedule: undefined;
+  ScheduleList: {
+    date: {
+      month: number;
+      year: number;
+      day: number;
+    };
+  };
 };
 
 const Stack = createNativeStackNavigator<MainPageParamList>();
@@ -18,9 +24,9 @@ function MainPage() {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="UserSchedule"
-        component={UserSchedule}
-        options={{headerShown: false}}
+        name="ScheduleList"
+        component={ScheduleList}
+        options={{title: '일정'}}
       />
     </Stack.Navigator>
   );

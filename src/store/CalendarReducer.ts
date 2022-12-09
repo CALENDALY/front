@@ -16,7 +16,10 @@ export const initialState = {
   month: TODAY.getMonth() + 1,
 };
 
-export const reducer: React.Reducer<State, Action> = (state, action) => {
+export const calendarReducer: React.Reducer<State, Action> = (
+  state,
+  action,
+) => {
   switch (action.type) {
     case 'NEXTMONTH':
       if (state.month < 12) {
