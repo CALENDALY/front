@@ -100,13 +100,13 @@ function GroupList({navigation}:any) {
               marginHorizontal: 30,
           },
       })
-  },
+    },
 
-  text: {
-      fontSize: 30,
-      textAlign: 'center',
-      color: 'white'
-  }
+    text: {
+        fontSize: 30,
+        textAlign: 'center',
+        color: 'white'
+    }
   });
   
   return (
