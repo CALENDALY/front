@@ -20,10 +20,8 @@ type Date = {
 };
 
 function CalendarContainer({year, month}: Props) {
-  const lastDate = new Date(year, month, 0).getDate();
-  const firstDay = new Date(year, month - 1, 1).getDay();
   const navigation = useNavigation<NavigationProp<MainPageParamList>>();
-  const week = Math.ceil((firstDay + lastDate) / 7);
+  const firstDay = new Date(year, month - 1, 1).getDay();
   const newDate = new Date();
   const today = newDate.getDate();
   const currentYear = newDate.getFullYear();
@@ -40,7 +38,7 @@ function CalendarContainer({year, month}: Props) {
     [currentMonth, currentYear, today],
   );
 
-  const monthList = makeCalendar(week, year, month, firstDay, lastDate);
+  const monthList = makeCalendar(year, month);
 
   const goDetail = useCallback(
     (day: Date) => {

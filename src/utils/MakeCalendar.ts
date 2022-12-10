@@ -1,11 +1,9 @@
-const makeCalendar = (
-  week: number,
-  year: number,
-  month: number,
-  firstDay: number,
-  lastDate: number,
-) => {
+const makeCalendar = (year: number, month: number) => {
   const monthList = [];
+  const lastDate = new Date(year, month, 0).getDate();
+  const firstDay = new Date(year, month - 1, 1).getDay();
+  const week = Math.ceil((firstDay + lastDate) / 7);
+
   for (let i = 1; i <= week; i++) {
     const weekList = [];
     if (i === 1) {
