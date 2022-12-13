@@ -15,19 +15,26 @@ function ScheduleList() {
   const navigation = useNavigation<NavigationProp<MainPageParamList>>();
   const date = route.params?.date!;
   const {year, month, day} = date;
+  const length = 29;
+
+  const getItemLayout = (data, index) => ({
+    length: length,
+    offset: length * index,
+    index,
+  });
+
   const makeWeekArr = () => {
     let nDate = new Date(year, month, day);
-    let lenght = 15;
     let week = [];
 
-    for (let i = 1; i <= lenght; i++) {
+    for (let i = 1; i <= length; i++) {
       let newDate;
-      if (i < lenght + 1) {
-        newDate = sub(nDate, {days: (lenght + 1) / 2 - i});
-      } else if (i === lenght + 1) {
+      if (i < length + 1) {
+        newDate = sub(nDate, {days: (length + 1) / 2 - i});
+      } else if (i === length + 1) {
         newDate = nDate;
       } else {
-        newDate = add(nDate, {days: i - (lenght + 1) / 2});
+        newDate = add(nDate, {days: i - (length + 1) / 2});
       }
       week.push([newDate.getDate(), newDate]);
     }
@@ -50,7 +57,6 @@ function ScheduleList() {
 
   const renderItem = useCallback(
     ({item}) => {
-      console.log(item);
       return (
         <View>
           <Pressable style={styles.route} onPress={() => goNext(item[1])}>
@@ -71,9 +77,14 @@ function ScheduleList() {
         renderItem={renderItem}
         data={weekList}
         horizontal={true}
-        initialScrollIndex={7}
+        getItemLayout={getItemLayout}
+        removeClippedSubviews={true}
+        initialScrollIndex={Math.round(length / 2) + 6}
         keyExtractor={(item, idx) => idx.toString()}
       />
+      <View>
+        <Text>+</Text>
+      </View>
     </View>
   );
 }
