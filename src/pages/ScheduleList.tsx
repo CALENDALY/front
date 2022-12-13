@@ -10,6 +10,10 @@ import {View, Text, Pressable, StyleSheet, FlatList} from 'react-native';
 import {MainPageParamList} from './MainPage';
 import ChangeDay from '../utils/ChangeDay';
 
+type ItemProps = {
+  item: Date;
+};
+
 function ScheduleList() {
   const route = useRoute<RouteProp<MainPageParamList>>();
   const navigation = useNavigation<NavigationProp<MainPageParamList>>();
@@ -17,7 +21,7 @@ function ScheduleList() {
   const {year, month, day} = date;
   const length = 29;
 
-  const getItemLayout = (data, index) => ({
+  const getItemLayout = (_: any, index: number) => ({
     length: length,
     offset: length * index,
     index,
@@ -36,7 +40,7 @@ function ScheduleList() {
       } else {
         newDate = add(nDate, {days: i - (length + 1) / 2});
       }
-      week.push([newDate.getDate(), newDate]);
+      week.push(newDate);
     }
     return week;
   };
@@ -56,13 +60,14 @@ function ScheduleList() {
   const weekList = makeWeekArr();
 
   const renderItem = useCallback(
-    ({item}) => {
+    ({item}: ItemProps) => {
       return (
         <View>
-          <Pressable style={styles.route} onPress={() => goNext(item[1])}>
-            <Text>{ChangeDay(item[1].getDay())}</Text>
-            <View style={[styles.round, item[0] === day && styles.today]}>
-              <Text>{item[1].getDate()}</Text>
+          <Pressable style={styles.route} onPress={() => goNext(item)}>
+            <Text>{ChangeDay(item.getDay())}</Text>
+            <View
+              style={[styles.round, item.getDate() === day && styles.today]}>
+              <Text>{item.getDate()}</Text>
             </View>
           </Pressable>
         </View>
