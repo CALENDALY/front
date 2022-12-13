@@ -9,6 +9,7 @@ import React, {useCallback} from 'react';
 import {View, Text, Pressable, StyleSheet, FlatList} from 'react-native';
 import {MainPageParamList} from './MainPage';
 import ChangeDay from '../utils/ChangeDay';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 type ItemProps = {
   item: Date;
@@ -48,8 +49,9 @@ function ScheduleList() {
   const goNext = useCallback(
     (list: Date) => {
       const newDate = {
-        year: list.getFullYear(),
-        month: list.getMonth(),
+        year:
+          list.getMonth() === 0 ? list.getFullYear() - 1 : list.getFullYear(),
+        month: list.getMonth() === 0 ? 12 : list.getMonth(),
         day: list.getDate(),
       };
       navigation.goBack();
@@ -57,6 +59,11 @@ function ScheduleList() {
     },
     [navigation],
   );
+
+  const goBack = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
+
   const weekList = makeWeekArr();
 
   const renderItem = useCallback(
@@ -77,7 +84,15 @@ function ScheduleList() {
   );
 
   return (
-    <View>
+    <SafeAreaView>
+      <View style={styles.header}>
+        <Pressable onPress={goBack} style={styles.goback}>
+          <Text style={styles.headerText}>&lt;</Text>
+        </Pressable>
+        <Text style={styles.headerText}>
+          {year}.{month}
+        </Text>
+      </View>
       <FlatList
         renderItem={renderItem}
         data={weekList}
@@ -90,7 +105,7 @@ function ScheduleList() {
       <View>
         <Text>+</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -113,6 +128,20 @@ const styles = StyleSheet.create({
   },
   today: {
     backgroundColor: '#FF7A00',
+  },
+  header: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  headerText: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginHorizontal: 15,
+  },
+  goback: {
+    position: 'absolute',
+    left: 0,
   },
 });
 

@@ -26,7 +26,7 @@ function MainPage() {
       <Stack.Screen
         name="ScheduleList"
         component={ScheduleList}
-        options={{title: '일정'}}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
