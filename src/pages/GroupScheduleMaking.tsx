@@ -18,19 +18,23 @@ function GroupScheduleMaking() {
       borderColor: 'gray',
       borderWidth: 1
     },
+
+    eventBox: {
+
+    }
   })
 
   return (
     <View>
-      <View style={{}}>
+      <View style={styles.titleBox}>
         <Text>safd</Text>
         <TextInput 
           style={styles.textInput}
           placeholder="제목"
           />
       </View>
-      <View>
-
+      <View style={styles.eventBox}>
+        
       </View>
     </View>
   )

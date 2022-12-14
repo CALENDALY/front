@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 function SignIn() {
   return (
     <View>
-      <Text>hi</Text>
+      <Text>아이디</Text>
     </View>
   );
 }

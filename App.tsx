@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import Main from './src/pages/Main';
+import Main from './src/pages/MainPage';
 import GroupList from './src/pages/GroupList';
 import MyPage from './src/pages/MyPage';
 import SignIn from './src/pages/SignIn';
@@ -36,25 +36,31 @@ function App() {
           <Tab.Screen
             name="main"
             component={Main}
-            options={{title: '메인페이지'}}
+            options={{headerShown: false}}
           />
           <Tab.Screen
             name="GroupMain"
             component={GroupMain}
             options={{title: '그룹페이지'}}
           />
-           
           <Tab.Screen
             name="MyPage"
             component={MyPage}
             options={{title: '마이페이지'}}
           />
-          
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>
-          <Stack.Screen name="SignIn" component={SignIn} />
-          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{title: '로그인'}}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{title: '회원가입'}}
+          />
         </Stack.Navigator>
       )}
     </NavigationContainer>
