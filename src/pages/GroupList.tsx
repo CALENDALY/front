@@ -111,6 +111,8 @@ function GroupList({navigation}:any) {
   
   return (
     <View>
+      <TouchableOpacity onPress={() => navigation.navigate('GroupScheduleMaking')}>
+        <Text>dsfa</Text></TouchableOpacity>
        {/* onPress={() => navigation.navigate('GroupListDetail')} */}
       <FlatList
         data = {test}
