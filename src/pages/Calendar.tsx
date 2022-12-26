@@ -1,7 +1,7 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useCallback, useReducer} from 'react';
 import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import CalendarContainer from '../components/CalendarContainer';
+import CalendarContainer from '../components/CalendarContainer/CalendarContainer';
 import {calendarReducer, initialState} from '../store/CalendarReducer';
 import {MainPageParamList} from './MainPage';
 
