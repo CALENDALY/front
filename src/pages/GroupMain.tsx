@@ -6,6 +6,7 @@ import GroupMaking from "./GroupMaking";
 import GroupListDetail from "./GroupListDetail";
 import GroupManage from "./GroupMange";
 import GroupScheduleMaking from "./GroupScheduleMaking";
+import GroupUserList from "./GroupUserList";
 
 type GroupStackParamList = {
   GroupList: undefined;
@@ -13,6 +14,7 @@ type GroupStackParamList = {
   GroupListDetail: undefined;
   GroupManage: undefined;
   GroupScheduleMaking: undefined;
+  GroupUserList: undefined;
 };
 
 const Stack = createNativeStackNavigator<GroupStackParamList>()
@@ -24,6 +26,7 @@ function GroupMain() {
       <Stack.Screen name="GroupMaking" component={GroupMaking} />
       <Stack.Screen name="GroupManage" component={GroupManage} />
       <Stack.Screen name="GroupScheduleMaking" component={GroupScheduleMaking} />
+      <Stack.Screen name="GroupUserList" component={GroupUserList} />
     </Stack.Navigator>
   )
 }

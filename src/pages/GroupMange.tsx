@@ -2,7 +2,7 @@
 import { Image, StyleSheet, Text, View,FlatList,TouchableOpacity, Platform } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function GroupManage() {
+function GroupManage({navigation}:any) {
   
   const image = "https://cdn.pixabay.com/photo/2019/01/09/14/13/leaves-3923413__480.jpg"
   const test = [
@@ -135,7 +135,7 @@ function GroupManage() {
           <Text>현재 참여 인원</Text>
           <View style={styles.nameBox}>
             <Text>스케쥴러 개발 그룹</Text>
-            <Icon name="home" size={24} color="#000" />
+            <Icon name="home" size={24} color="#000"  onPress={() => navigation.navigate('GroupUserList')}/>
           </View>
           <View>
             {
