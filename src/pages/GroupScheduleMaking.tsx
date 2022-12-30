@@ -84,7 +84,7 @@ function GroupScheduleMaking() {
 
   return (
     <View>
-      <View style={{}}>
+      <View style={styles.titleBox}>
         <Text>safd</Text>
         <TextInput 
           style={styles.textInput}
