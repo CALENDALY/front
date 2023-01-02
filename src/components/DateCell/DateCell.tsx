@@ -7,38 +7,47 @@ import {MainPageParamList} from '../../pages/MainPage';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 type Props = {
-  day: Date;
+  day: IDate;
   dayIdx: number;
   isCurrentMonth: boolean;
+  schedule: ISchedule[];
 };
 
-type Date = {
+export type ISchedule = {
+  id: number;
+  subject: string;
+  contents: string;
+  startDt: string;
+  endDt: string;
+  priority: number;
+  groupId: number;
+};
+
+export type IDate = {
   month: number;
   year: number;
   day: number;
 };
 
-function DateCell({day, dayIdx, isCurrentMonth}: Props) {
+function DateCell({day, dayIdx, isCurrentMonth, schedule}: Props) {
   const navigation = useNavigation<NavigationProp<MainPageParamList>>();
 
-  const newDate = new Date();
-  const today = newDate.getDate();
-  const currentYear = newDate.getFullYear();
-  const currentMonth = newDate.getMonth() + 1;
+  const correctToday = useCallback((date: IDate) => {
+    const newDate = new Date();
+    const today = newDate.getDate();
+    const currentYear = newDate.getFullYear();
+    const currentMonth = newDate.getMonth() + 1;
+    return (
+      currentMonth === date.month &&
+      currentYear === date.year &&
+      date.day === today
+    );
+  }, []);
 
-  const correctToday = useCallback(
-    (date: Date) => {
-      return (
-        currentMonth === date.month &&
-        currentYear === date.year &&
-        date.day === today
-      );
-    },
-    [currentMonth, currentYear, today],
-  );
+  console.log(schedule);
 
   const goDetail = useCallback(
-    (day: Date) => {
+    (day: IDate) => {
       navigation.navigate('ScheduleList', {date: day});
     },
     [navigation],
@@ -59,9 +68,11 @@ function DateCell({day, dayIdx, isCurrentMonth}: Props) {
         ]}>
         {day.day}
       </Text>
-      <View style={styles.itemWithBackground}>
-        <Text style={styles.fontWhite}>요기</Text>
-      </View>
+      {schedule.map(list => (
+        <View style={propStyle(false, list.priority).itemWithBackground}>
+          <Text style={styles.fontWhite}>{list.subject}</Text>
+        </View>
+      ))}
     </Pressable>
   );
 }
@@ -94,9 +105,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#46E469',
     borderRadius: 20,
   },
-  itemWithBackground: {
-    position: 'absolute',
-    top: '30%',
-    backgroundColor: 'green',
-  },
 });
+
+const propStyle = (isEnd: boolean, priority: number) =>
+  StyleSheet.create({
+    itemWithBackground: {
+      position: 'absolute',
+      width: '100%',
+      height: '25%',
+      top: `${priority * 30}%`,
+      backgroundColor: 'green',
+      borderBottomRightRadius: isEnd ? 50 : undefined,
+      borderTopRightRadius: isEnd ? 50 : undefined,
+    },
+  });

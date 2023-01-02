@@ -1,4 +1,4 @@
-const makeCalendar = (year: number, month: number) => {
+const makeMonth = (year: number, month: number) => {
   const monthList = [];
   const lastDate = new Date(year, month, 0).getDate();
   const firstDay = new Date(year, month - 1, 1).getDay();
@@ -46,4 +46,4 @@ const makeCalendar = (year: number, month: number) => {
   return monthList;
 };
 
-export default makeCalendar;
+export default makeMonth;
