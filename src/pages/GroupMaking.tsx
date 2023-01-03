@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import GroupMakingModal from "../components/GroupMakingModal";
 import MultipleSelectList from "../components/MultipleSelectedList";
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 function GroupMaking() {
-  const mainImage = "https://cdn.pixabay.com/photo/2019/01/09/14/13/leaves-3923413__480.jpg"
+  const mainImage = "https://img.icons8.com/pastel-glyph/2x/image-file.png"
   const title = "그룹이름 이에요!"
   const user = "참석 회원"
   const [selected, setSelected] = useState([]);
@@ -19,75 +20,56 @@ function GroupMaking() {
     {value : "nickname8",email: "email8"},
     {value : "nickname9",email: "email9"},
   ]
+
+  const imagePickerOption:any = {
+    mediaType: "photo",
+    maxWidth: 768,
+    maxHeight: 768,
+    includeBase64: Platform.OS === "android",
+  };
+  const onPickImage = (res:any) => { 
+    if (res.didCancel || !res) {
+      return;
+    }
+    console.log("PickImage", res);
+  }
+
+  const ShowPicker = () => {
+    launchImageLibrary(imagePickerOption, onPickImage);
+      
+  }
+
   const styles = StyleSheet.create({
     imageBox : {
       height : 200,
+      alignItems:'center',
+      justifyContent:"center",
+      borderColor: "#dbdbdb",
+      borderStyle: "dashed",
+      borderWidth : 3,
+      margin:5
+      
     },
-    userBox : {
-      flexDirection : "row",
-      height : 150,
-    },
-    button: {
-      backgroundColor: 'green',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: 30,
-      height: 30,
-      marginBottom: 30,
-      borderRadius: 35,
-      // position: 'absolute',
-      // right : 5,
-      // bottom : 5,
-      ...Platform.select({
-          ios: {
-              shadowColor: 'rgba(0,0,0,0.2)',
-              shadowOpacity: 1,
-              shadowOffset: {height: 2, width: 2},
-              shadowRadius: 2,
-          },
+    
 
-          android: {
-              elevation: 0,
-              marginHorizontal: 30,
-          },
-      })
-    },
 
-    text: {
-        fontSize: 30,
-        textAlign: 'center',
-        color: 'white'
-    },
-
-    leftBox: {
-      width: "30%",
-      height : "100%",
-    },
-    rightBox: {
-      width: "70%",
-      height : "100%",
-    }
   })
   return (
     <View>
       <View style={styles.imageBox}>
         <Image 
-          style={{height:'100%',width:'100%'}}
+          resizeMode="contain"
+          style={{height:'30%',width:'30%'}}
           source={{uri:mainImage}} 
         />
+        <Text onPress={ShowPicker}>Drag files to upload</Text>
       </View>
-      <View>
-        <Text>
-          {title}
-        </Text>
+      <View style={{marginTop:30  }}>
+        <TextInput placeholder="제목을 입력해주세요" style={{borderWidth:1,margin:5,borderRadius:10,paddingLeft:10}}/>
+        <TextInput placeholder="소개를 입력해주세요" style={{borderWidth:1,margin:5,borderRadius:10,paddingLeft:10,paddingTop:15,height:150,textAlignVertical:"top"}}/>
       </View>
-      <View style={styles.userBox}>
-        <View style={styles.leftBox}>
-          <Text>
-            {user}
-          </Text>
-        </View>
-        <View style={styles.rightBox}>
+      <View style={{}}>
+        <View style={{}}>
           {GroupMakingModal()}
         </View>
       </View>

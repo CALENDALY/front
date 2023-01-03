@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  FlatList, Image, Modal, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import {  Dimensions, FlatList, Image, Modal, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 
 
 function GroupMakingModal() {
@@ -20,7 +20,8 @@ function GroupMakingModal() {
     {name : "nickname12", email : "rhkrehd619@naver.com",image :"https://cdn.pixabay.com/photo/2019/01/09/14/13/leaves-3923413__480.jpg", },
     {name : "nickname13", email : "rhkrehd619@naver.com",image :"https://cdn.pixabay.com/photo/2019/01/09/14/13/leaves-3923413__480.jpg" ,},
   ])
-
+  
+  const screenWidth = Dimensions.get('window').width;
   const handleClick = (idx: number) => {
     if (isChecked.includes(idx)) {
       setIsChecked(isChecked.filter((e) => e != idx))
@@ -40,10 +41,10 @@ function GroupMakingModal() {
       marginTop:22,
     },
     modalView: {
-      margin: 20,
+      margin: 5,
       backgroundColor: "#fff",
       borderRadius: 20,
-      padding: 35,
+      padding: 15,
       alignItems: 'center',
       shadowColor: '#000',
       height: "80%",
@@ -59,16 +60,21 @@ function GroupMakingModal() {
       shadowRadius: 3.84,
     },
     openButton: {
-      width:50,
       height:50,
-      backgroundColor: '#f194ff',
-      borderRadius: 35,
-      padding: 10,
+      backgroundColor: 'gray',
+      borderRadius: 10,
+      // padding: 10,
+      // marginTop: 70,
+      marginTop : 15,
+      width:screenWidth - 10,
+      borderColor : "gray",
+      justifyContent:"center"
     },
     textStyle: {
       color: 'white',
       fontWeight: 'bold',
-    
+      textAlign:"center",
+      textAlignVertical:"center",
     },
     modalText: {
       marginBottom: 15,
@@ -97,7 +103,7 @@ function GroupMakingModal() {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>초대할 사람들</Text>
+            <Text style={styles.modalText}>초대목록</Text>
             <FlatList
               data = {userList}
               style = {{height:500,width:"100%"}}
@@ -119,15 +125,17 @@ function GroupMakingModal() {
                 </View>
               </TouchableOpacity>
             } />
+   
             <TouchableHighlight
               //styles.openButton을 복사한뒤 새로운 값 backgroundColor 추가
-              style={{ ...styles.openButton, backgroundColor: '#2196F3'}}
+              style={{ ...styles.openButton}}
               onPress={()=>{
                 setModalVisible(!modalVisible)
               }}
             >
               <Text style={styles.textStyle}>Hidddfe Modal</Text>
             </TouchableHighlight>
+      
           </View>
         </View>
       </Modal>
@@ -138,7 +146,7 @@ function GroupMakingModal() {
           setModalVisible(true)
         }}
       >
-        <Text style={styles.textStyle}>+</Text>
+        <Text style={styles.textStyle}>초대하기</Text>
       </TouchableHighlight>
     </View>
   )

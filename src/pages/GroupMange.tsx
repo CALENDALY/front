@@ -148,7 +148,7 @@ function GroupManage({navigation}:any) {
                   renderItem = {({item,index}) => 
                   <TouchableOpacity 
                     style={styles.button}
-                    onPress={() => {}}  
+                    onPress={() => navigation.navigate('GroupScheduleDetail')}  
                   >
                     <Image source={{uri:item.image}} style={styles.image}/>
                   </TouchableOpacity>
@@ -186,7 +186,7 @@ function GroupManage({navigation}:any) {
             renderItem = {({item,index}) => 
             <TouchableOpacity 
               style={{}}
-              onPress={() => {}}  
+              onPress={() => {navigation.navigate('GroupScheduleDetail',{idx:index})}}  
             >
               <View style={{flexDirection:"row",justifyContent:"space-between"}}>
                 <Text>{item.title}</Text>

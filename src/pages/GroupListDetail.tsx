@@ -1,10 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-function GroupListDetail() {
+function GroupListDetail({ navigation, route }:any) {
   return (
     <View>
-      <Text>df</Text>
+      <Text>{route.params.idx}</Text>
     </View>
   )
 }

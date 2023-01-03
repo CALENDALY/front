@@ -43,11 +43,11 @@ function App() {
             component={GroupMain}
             options={{title: '그룹페이지'}}
           />
-          <Tab.Screen
+          {/* <Tab.Screen
             name="MyPage"
             component={MyPage}
             options={{title: '마이페이지'}}
-          />
+          /> */}
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>
