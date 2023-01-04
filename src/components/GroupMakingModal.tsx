@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import {  Dimensions, FlatList, Image, Modal, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+
 
 
 function GroupMakingModal() {
@@ -45,7 +47,9 @@ function GroupMakingModal() {
       backgroundColor: "#fff",
       borderRadius: 20,
       padding: 15,
-      alignItems: 'center',
+
+      alignItems:"center",
+      // alignItems: 'center',
       shadowColor: '#000',
       height: "80%",
       width : "80%",
@@ -70,6 +74,16 @@ function GroupMakingModal() {
       borderColor : "gray",
       justifyContent:"center"
     },
+    closeButton : {
+      height: 50,
+      backgroundColor: "gray",
+      borderRadius: 10,
+      width:"80%",
+      borderColor : "gray",
+      justifyContent:"center",
+      alignItems:"center",
+      marginTop : 15,
+    },
     textStyle: {
       color: 'white',
       fontWeight: 'bold',
@@ -78,7 +92,8 @@ function GroupMakingModal() {
     },
     modalText: {
       marginBottom: 15,
-    
+      fontWeight:"600",
+      fontSize:18
     },
     
     container_active: {
@@ -89,9 +104,16 @@ function GroupMakingModal() {
     },
     leftBox: {
       width : "30%",
+      justifyContent: "center",
+      alignItems: "center",
     },
     rightBox: {
       width : "70%",
+      justifyContent: "space-between",
+      flexDirection:"row",
+      alignItems: "center",
+
+      // alignItems: "center",
     },
   })
   return (
@@ -103,37 +125,36 @@ function GroupMakingModal() {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>초대목록</Text>
+            <Text style={styles.modalText}>그룹멤버 초대</Text>
             <FlatList
               data = {userList}
               style = {{height:500,width:"100%"}}
               renderItem = {({item,index}) => 
-              <TouchableOpacity style={{flexDirection : "row", height:100, backgroundColor : isChecked.includes(index) ? "blue" : "red"  }} onPress={() => {handleClick(index)}} >
+              <TouchableOpacity style={{flexDirection : "row", height:60,  }} onPress={() => {handleClick(index)}} >
                 <View style={styles.leftBox}>
                   <Image 
-                    style={{height:50,width:50,borderRadius:50,}}
+                    style={{height:40,width:40,borderRadius:50,}}
                     source={{uri:item.image}} 
                   />
                 </View>
                 <View style={styles.rightBox}>
-                  <View style={{}}>
-                    <Text>{item.name}</Text>
-                  </View>
-                  <View style={{}}>
-                    <Text>{item.email}</Text>
-                  </View>
+                  <Text>{item.name}</Text>
+                  { isChecked.includes(index) ?
+                  <Icon name='check-circle' size={24} color="gray"/> :
+                  <Icon name='circle-o' size={24} color="gray"/>
+                  }
                 </View>
               </TouchableOpacity>
             } />
    
             <TouchableHighlight
               //styles.openButton을 복사한뒤 새로운 값 backgroundColor 추가
-              style={{ ...styles.openButton}}
+              style={styles.closeButton}
               onPress={()=>{
                 setModalVisible(!modalVisible)
               }}
             >
-              <Text style={styles.textStyle}>Hidddfe Modal</Text>
+              <Text style={styles.textStyle}>확인</Text>
             </TouchableHighlight>
       
           </View>
